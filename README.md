@@ -3,12 +3,12 @@
 Pipeline to identify candidate circular regions in Circle-seq short-read paired-end sequecing data.
 Developed by Richard Koche, adapted to BIH cluster by @haasek and maintained by @madagiurgiu25.
 
-- [Installation](## Installation)
-- [Run circle-enrich-filter](## Run circle-enrich-filter)
-- [Citation](## Citation)
-- [License](### License)
+- [Installation](#installation)
+- [Run circle-enrich-filter](#run-circle-enrich-filter)
+- [Citation](#citation)
+- [License](#license)
 
-## Installation 
+## Installation <a name="installation"></a> 
 
 Prequisites are conda, python==2.7 and pgltools v2.2.0.
 
