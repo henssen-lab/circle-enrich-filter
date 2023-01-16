@@ -1,3 +1,6 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+
 # circle-enrich-filter
 
 Pipeline to identify candidate circular regions in Circle-seq short-read paired-end sequecing data.
