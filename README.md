@@ -69,11 +69,11 @@ Run test example using the `2:14508020-18508849` region from a CHP212 cellline s
 bash run_CircleEnrichFilter.sh -i example/output/chp212_2_14508020_18508849.bam -o example/2_14508020_18508849.fa 
 ```
 
-The pipeline generates the all files under `example/ouput`. The final enriched regions found by `circle-enrich-finder` is [Regions.enriched.merged.b2bRefined.Counts.ThreshFinal.bed](example/output/Regions_chp212_2_14508020_18508849.enriched.merged.b2bRefined.Counts.ThreshFinal.bed). The header is described bellow:
+The pipeline generates the all files under `example/ouput`. The final enriched regions found by `circle-enrich-filter` is [Regions.enriched.merged.b2bRefined.Counts.ThreshFinal.bed](example/output/Regions_chp212_2_14508020_18508849.enriched.merged.b2bRefined.Counts.ThreshFinal.bed). The header is described bellow:
 
 | column  | description |
 |---------|--------------|
-| 1       | reference sequence name ||
+| 1       | reference sequence name |
 | 2       | start position | 
 | 3       | end position |
 | 4       | edge counts (split-reads spanning the junction) |
@@ -86,7 +86,7 @@ Koche, R.P., Rodriguez-Fos, E., Helmsauer, K. et al. Extrachromosomal circular D
 [https://doi.org/10.1038/s41588-019-0547-z](https://www.nature.com/articles/s41588-019-0547-z)
 
 
-### License <a name="license"></a>
+## License <a name="license"></a>
 
 Circle-enrich-filter is distributed under the GNU General Public License v3.0. Consult the accompanying [LICENSE](https://github.com/henssen-lab/circle-enrich-filter/blob/main/LICENSE) file for more details.
 
