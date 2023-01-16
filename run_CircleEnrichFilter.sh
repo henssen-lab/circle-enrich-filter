@@ -275,7 +275,7 @@ bamCoverage --extendReads 0 --minMappingQuality $qfilt --ignoreDuplicates --binS
 # get chrM coords for this genome assembly, based on bam header (differs depending on used genome build):
 chrMcoord="chrM.bed"
 #samtools view -H $inbam | grep "SN:chrM" | awk -v OFS='\t' '{ split($3,a,":"); print "chrM",1,a[2]}' > $chrMcoord
-samtools view -H $inbam | grep "SN:MT" | awk -v OFS='\t' '{split($3,a,":"); print "MT",1,a[2]}' > $chrMcoord
+samtools view -H $inbam | grep -P "SN:(chr)*MT" | awk -v OFS='\t' '{split($3,a,":"); print "MT",1,a[2]}' > $chrMcoord
 
 # meta plots
 # create data matrix (one site, so here a simple vector)
