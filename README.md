@@ -4,7 +4,8 @@ Pipeline to identify candidate circular regions in Circle-seq short-read paired-
 Developed by Richard Koche, adapted to BIH cluster by @haasek and maintained by @madagiurgiu25.
 
 - [Installation](#installation)
-- [Run circle-enrich-filter](#run-circle-enrich-filter)
+- [Usage](#usage)
+- [Run circle-enrich-filter example](#run-circle-enrich-filter)
 - [Citation](#citation)
 - [License](#license)
 
@@ -38,28 +39,58 @@ git clone https://github.com/billgreenwald/pgltools.git
 # use the v2.2.0 version
 export PATH=$PWD/pgltools/sh:$PATH
 ```
-## Run circle-enrich-filter
 
-The command for running `circle-enrich-filter`:
+## Usage  <a name="usage"></a>
 
-```
-conda activate circleEnrich
-bash run_CircleEnrichFilter.sh
-```
-
-Run test example:
+The tool requires as input mapped reads. 
 
 ```
-bash example/circ0.bam example/output/circ0 example/ref.fa 
+Usage: bash run_CircleEnrichFilter.sh [OPTION..] -i <reads.bam> -o <outdir>
+circle-enrich-filter version 1.0.0
+
+Find enriched regions from Circle-seq paired-end short-read sequencing data.
+Options:
+-i	Input bam file.
+-o	Output directory.
+-s	Number of circle-supporting (split and/or outward facing) reads at edge of each putative circle (default=2)
+-m	Number of bp for initial enriched region merging; based on tests in neuroblastoma data
+-@	Number of threads (default=4)
+-h	Help
+-V	Print program version
+
 ```
 
-## Citation
+
+## Run circle-enrich-filter example <a name="run-circle-enrich-filter"></a>
+
+Run test example using the `2:14508020-18508849` region from a CHP212 cellline sequenced using the Circle-seq Illumina sequencing.
+
+```
+bash run_CircleEnrichFilter.sh -i example/output/chp212_2_14508020_18508849.bam -o example/2_14508020_18508849.fa 
+```
+
+This will generate a file `example/output/Regions_chp212_2_14508020_18508849.enriched.merged.b2bRefined.Counts.ThreshFinal.bed`
+
+| column  | description |
+|---------|--------------|
+| 1       | reference sequence name |
+|
+| 2       | start position |
+| 
+| 3       | end position |
+|
+| 4       | edge counts (split-reads spanning the junction) |
+|
+| 5       | all counts (coverage all reads spanning the junction) | 
+
+
+## Citation <a name="citation"></a>
 
 Koche, R.P., Rodriguez-Fos, E., Helmsauer, K. et al. Extrachromosomal circular DNA drives oncogenic genome remodeling in neuroblastoma. Nat Genet 52, 29-34 (2020). 
 [https://doi.org/10.1038/s41588-019-0547-z](https://www.nature.com/articles/s41588-019-0547-z)
 
 
-### License
+### License <a name="license"></a>
 
 Circle-enrich-filter is distributed under the GNU General Public License v3.0. Consult the accompanying [LICENSE](https://github.com/henssen-lab/circle-enrich-filter/blob/main/LICENSE) file for more details.
 

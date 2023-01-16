@@ -26,27 +26,80 @@
 # Functions used: bamCoverage, computeMatrix, plotProfile, plotHeatmap
 ## deeptools=/data/cer/shared/venvs/cer_base/bin/deeptools
 
+############################################################
+# Help                                                     #
+############################################################
+Help()
+{
+   # Display Help
+   echo
+   echo "Usage: bash run_CircleEnrichFilter.sh [OPTION..] -i <reads.bam> -o <outdir>"
+   echo "circle-enrich-filter version 1.0.0"
+   echo
+   echo	"Find enriched regions from Circle-seq paired-end short-read sequencing data."
+   echo "Options:"
+   echo "-i	Input bam file."
+   echo "-o	Output directory."
+   echo "-s	Number of circle-supporting (split and/or outward facing) reads at edge of each putative circle (default=2)"
+   echo "-m	Number of bp for initial enriched region merging; based on tests in neuroblastoma data"
+   echo "-@	Number of threads (default=4)"
+   echo "-h	Help"
+   echo "-V	Print program version"
+   echo
+}
+
+
 ###### Params set for neuroblastoma Circle-seq data, but can be adjusted as needed
 nthreads=4 # for processes which can be multithreaded
 qfilt=20 # MAPQ filter for reads
 enrichFDR=0.001 # FDR for initial segment enrichment step
 mergedist=3000 # bp for initial enriched region merging; based on tests in NB data
-circEdgeThresh=0 # threshold for the number of circle-supporting (split and/or outward facing) reads at edge of each putative circle (default=2)
+circEdgeThresh=2 # threshold for the number of circle-supporting (split and/or outward facing) reads at edge of each putative circle (default=2)
+
+
+
+while getopts ":hi:o:s:@:m:V" option; do
+   case $option in
+      h) # display Help
+         Help
+         exit;;
+      i) # input bam file
+	inbam=$OPTARG;;
+      o) # outputdir
+	outdir=$OPTARG;;
+      s) # set threshold
+	circEdgeTresh=$OPTARG;;
+      m) # set merge dist
+	mergedist=$OPTARG;;
+      @) # set threads
+	nthreads=$OPTARG;;
+      V)
+	echo "circle-enrich-filter version 1.0.0"
+	exit;;
+      \?) # Invalid option
+         echo "Error: Invalid option"
+         exit;;
+   esac
+done
 
 
 echo "=========================================================="
 echo "Starting on : $(date)"
+echo "Circle-enrich-filter version: 1.0.0"
+echo "Input: $inbam"
+echo "Outdir: $outdir"
 echo "Current directory : $(pwd)"
+echo "Parameters: nthreads=$nthreads qfilt=$qfilt enrichFDR=$enrichFDR mergedist=$mergedist circEdgeThresh=$circEdgeThresh"
 echo "=========================================================="
 
 
 ###### Input params: bam file + folder
 
-inbam=$1
+#inbam=$1
 inbamnodir=${inbam##*/} # rm path for renaming
 inbambase=${inbamnodir/%.bam/}
 
-outdir=$2
+#outdir=$2
 
 mkdir -p $outdir
 cd $outdir;
@@ -80,7 +133,7 @@ grep -v "^#" $peakfile | cut -f2-4 | grep -v "random\|chrUn\|GL\|NC_\|hs37d5\|EG
 # (sometimes more accurate delineation of circle junctions, but can fall into trap of cascading reads outside of enriched region)
 # First get bam to bed
 bam2bed=${inbamnodir/%.bam/.bam2bed.bed}
-samtools view --threads $nthreads -bq $qfilt $inbam | bedtools bamtobed -i stdin -splitD | cut -f1-3 | grep -v "random\|chrUn" | sort -k1,1 -k2,2n | bedtools merge -d 250 -i stdin > $bam2bed
+samtools view --threads $nthreads -bq $qfilt $inbam | bedtools bamtobed -i stdin -splitD | cut -f1-3 | grep -v "random\|chrUn\|GL\|NC_\|hs37d5\|EGFP\|KI" | sort -k1,1 -k2,2n | bedtools merge -d 250 -i stdin > $bam2bed
 
 # Then get bam2bed overlap with enriched blocks, but only keep segments with >5 reads
 # (this is for edge fine-tuning, not circle calling)
