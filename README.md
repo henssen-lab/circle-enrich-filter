@@ -3,6 +3,11 @@
 Pipeline to identify candidate circular regions in Circle-seq short-read paired-end sequecing data.
 Developed by Richard Koche, adapted to BIH cluster by @haasek and maintained by @madagiurgiu25.
 
+- [Installation](##Installation)
+- [Run circle-enrich-filter](##Run-circle-enrich-filter)
+- [Citation](##Citation)
+- [License](###License)
+
 ## Installation 
 
 Prequisites are conda, python==2.7 and pgltools v2.2.0.
@@ -69,15 +74,28 @@ closest1D:  find the closest contacts in a pgl file to a set of regions in a bed
 The command for running `circle-enrich-filter`:
 
 ```
-
+conda activate circleEnrich
+bash run_CircleEnrichFilter.sh
 ```
 
 Run test example:
 
 ```
-bash example/in.bam outputdir example/ref.fa 
+bash example/circ0.bam example/output/circ0 example/ref.fa 
 ```
 
+## Citation
+
+Koche, R.P., Rodriguez-Fos, E., Helmsauer, K. et al. Extrachromosomal circular DNA drives oncogenic genome remodeling in neuroblastoma. Nat Genet 52, 29-34 (2020). 
+[https://doi.org/10.1038/s41588-019-0547-z](https://www.nature.com/articles/s41588-019-0547-z)
+
+
+### License
+
+Circle-enrich-filter is distributed under the GNU General Public License v3.0. Consult the accompanying [LICENSE](https://github.com/henssen-lab/circle-enrich-filter/blob/main/LICENSE) file for more details.
+
+
+--------
 
 Two input parameters are: 1) bam file (in which circular regions will be detected), 2) output folder
 
