@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## The code below is to find enriched regions in Circle-seq data from a paired end Illumina run
+## The code below is to find enriched regions in Circle-seq data from a paired-end Illumina run.
 ## (Long reads, both PacBio and Nanopore, are processed differenty, as are PE reads from WGS data.)
 
 ## The only inputs are
@@ -14,7 +14,6 @@
 
 ## Created by Richard Koche, kocher@mskcc.org
 
-
 ###### Software dependencies.
 ### Here, including paths to minimize confusion with alt installs within the CER.
 ## samtools=/opt/common/CentOS_7/samtools/samtools-1.8/bin/samtools
@@ -26,10 +25,6 @@
 # The above are called directly using the name, but deeptools must be in path
 # Functions used: bamCoverage, computeMatrix, plotProfile, plotHeatmap
 ## deeptools=/data/cer/shared/venvs/cer_base/bin/deeptools
-
-### All packages except pgltools are available as conda package. Have been added to environment
-### circleEnrich
-export PATH=$PATH:/fast/home/users/haasek_c/work/programs/pgltools-master/sh
 
 ###### Params set for neuroblastoma Circle-seq data, but can be adjusted as needed
 nthreads=4 # for processes which can be multithreaded
@@ -78,7 +73,7 @@ grep -v "^#" $peakfile | cut -f2-4,6 > $peakbed
 # Output merged regions of enrichment
 # Edges may not be perfect due to where enrichment block falls, but works in most cases and can be corrected below
 mergedbed=${peakfile/%.txt/.enriched.merged.orig.bed}
-grep -v "^#" $peakfile | cut -f2-4 | grep -v "random\|chrUn\|GL\|NC_\|hs37d5\|EGFP" | sort -k1,1 -k2,2n | bedtools merge -d $mergedist -i stdin > $mergedbed
+grep -v "^#" $peakfile | cut -f2-4 | grep -v "random\|chrUn\|GL\|NC_\|hs37d5\|EGFP\|KI" | sort -k1,1 -k2,2n | bedtools merge -d $mergedist -i stdin > $mergedbed
 
 
 # Output merged reads
