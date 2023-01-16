@@ -69,7 +69,7 @@ Run test example using the `2:14508020-18508849` region from a CHP212 cellline s
 bash run_CircleEnrichFilter.sh -i example/output/chp212_2_14508020_18508849.bam -o example/2_14508020_18508849.fa 
 ```
 
-This will generate a file `example/output/Regions_chp212_2_14508020_18508849.enriched.merged.b2bRefined.Counts.ThreshFinal.bed`
+The pipeline generates the following [output](example/ouput). The final enriched regions found by `circle-enrich-finder` is [Regions.enriched.merged.b2bRefined.Counts.ThreshFinal.bed](example/output/Regions_chp212_2_14508020_18508849.enriched.merged.b2bRefined.Counts.ThreshFinal.bed). The header is described bellow:
 
 | column  | description |
 |---------|--------------|
