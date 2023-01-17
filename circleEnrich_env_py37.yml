@@ -1,0 +1,13 @@
+name: circle-seq
+channels:
+ - bioconda
+ - conda-forge
+ - defaults
+dependencies:
+ - python==3.7
+ - bedtools==2.30.0
+ - picard==2.27.5
+ - samtools==1.16
+ - openjdk==11.0.15
+ - homer==4.11
+ - deeptools==3.5.1

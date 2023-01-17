@@ -14,11 +14,15 @@ Developed by Richard Koche, adapted to BIH cluster by @haasek and maintained by 
 
 ## Installation <a name="installation"></a> 
 
-Prequisites are conda, python==2.7 and pgltools v2.2.0.
+Prequisites are conda and pgltools v2.2.0. Compatible with `python 2.7` and `python 3.7`.
 
 ### 1. Create conda environment
 
-This conda installation will download the following dependencies:
+Choose one of the python versions to install the conda environment.
+
+#### Option1: Python 2.7
+
+Use `circleEnrich_env.yml` to download and install the following dependencies:
 
 - bedtools=2.29.2
 - deeptools=3.1.3
@@ -34,6 +38,26 @@ git clone https://github.com/henssen-lab/circle-enrich-filter.git
 cd circle-enrich-filter
 mamba env create -f circleEnrich_env.yml
 ```
+
+#### Option2: Python 3.7
+
+Use `circleEnrich_env_py37.yml` to download and install the following dependencies:
+
+- python==3.7
+- bedtools==2.30.0
+- picard==2.27.5
+- samtools==1.16
+- openjdk==11.0.15
+- homer==4.11
+- deeptools==3.5.1
+
+```
+# create conda environment
+git clone https://github.com/henssen-lab/circle-enrich-filter.git
+cd circle-enrich-filter
+mamba env create -f circleEnrich_env_py37.yml
+```
+
 
 ### 2. Install pgltools 
 
