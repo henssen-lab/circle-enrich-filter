@@ -9,12 +9,14 @@ Developed by Richard Koche, adapted to BIH cluster by @haasek and maintained by 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Run circle-enrich-filter example](#run-circle-enrich-filter)
+- [Run circle-enrich-filter with PDX data](#run-pdx)
 - [Citation](#citation)
 - [License](#license)
 
 ## Installation <a name="installation"></a> 
 
-Prequisites are conda and pgltools v2.2.0. Compatible with `python 2.7` and `python 3.7`.
+Prequisites are conda and pgltools v2.2.0. Compatible with `python 2.7` and `python 3.7`.<br/>
+Compatible with human (`GRCh38.p13`, `GRCh37.p13`, `hs37d5`, `hg38`, `hg19`) and mouse (`GRCm38`) genome assemblies.
 
 ### 1. Create conda environment
 
@@ -90,7 +92,7 @@ Options:
 
 ## Run circle-enrich-filter example <a name="run-circle-enrich-filter"></a>
 
-Run test example using the `2:14508020-18508849` region from a CHP212 cellline sequenced using the Circle-seq Illumina sequencing.
+Run test example using the `2:14508020-18508849` region from CHP212 human cellline sequenced using the Circle-seq Illumina sequencing.
 
 ```
 bash run_CircleEnrichFilter.sh -i example/output/chp212_2_14508020_18508849.bam -o example/2_14508020_18508849.fa 
@@ -105,6 +107,11 @@ The pipeline generates the all files under `example/ouput`. The final enriched r
 | 3       | end position |
 | 4       | edge counts (split-reads spanning the junction) |
 | 5       | all counts (coverage all reads spanning the junction) | 
+
+
+## Run PDX samples with circle-enrich-filter <a name="run-pdx"></a>
+
+In case you run PDX samples, please consider annotating all chromosomes from the mouse using `m.*`, .e.g `m.1` or `m.chr1`. 
 
 
 ## Citation <a name="citation"></a>

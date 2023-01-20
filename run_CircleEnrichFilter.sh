@@ -126,14 +126,14 @@ grep -v "^#" $peakfile | cut -f2-4,6 > $peakbed
 # Output merged regions of enrichment
 # Edges may not be perfect due to where enrichment block falls, but works in most cases and can be corrected below
 mergedbed=${peakfile/%.txt/.enriched.merged.orig.bed}
-grep -v "^#" $peakfile | cut -f2-4 | grep -v "random\|chrUn\|GL\|NC_\|hs37d5\|EGFP\|KI" | sort -k1,1 -k2,2n | bedtools merge -d $mergedist -i stdin > $mergedbed
+grep -v "^#" $peakfile | cut -f2-4 | grep -v "alt\|random\|chrU\|GL\|NC\|hs37d5\|EGFP\|K\|ML\|JH" | sort -k1,1 -k2,2n | bedtools merge -d $mergedist -i stdin > $mergedbed
 
 
 # Output merged reads
 # (sometimes more accurate delineation of circle junctions, but can fall into trap of cascading reads outside of enriched region)
 # First get bam to bed
 bam2bed=${inbamnodir/%.bam/.bam2bed.bed}
-samtools view --threads $nthreads -bq $qfilt $inbam | bedtools bamtobed -i stdin -splitD | cut -f1-3 | grep -v "random\|chrUn\|GL\|NC_\|hs37d5\|EGFP\|KI" | sort -k1,1 -k2,2n | bedtools merge -d 250 -i stdin > $bam2bed
+samtools view --threads $nthreads -bq $qfilt $inbam | bedtools bamtobed -i stdin -splitD | cut -f1-3 | grep -v "alt\|random\|chrU\|GL\|NC\|hs37d5\|EGFP\|K\|ML\|JH" | sort -k1,1 -k2,2n | bedtools merge -d 250 -i stdin > $bam2bed
 
 # Then get bam2bed overlap with enriched blocks, but only keep segments with >5 reads
 # (this is for edge fine-tuning, not circle calling)
@@ -322,8 +322,8 @@ bamCoverage --extendReads 0 --minMappingQuality $qfilt --ignoreDuplicates --binS
 ## First, chrM plots:
 # get chrM coords for this genome assembly, based on bam header (differs depending on used genome build):
 chrMcoord="chrM.bed"
-#samtools view -H $inbam | grep "SN:chrM" | awk -v OFS='\t' '{ split($3,a,":"); print "chrM",1,a[2]}' > $chrMcoord
-samtools view -H $inbam | grep -P "SN:(chr)*MT" | awk -v OFS='\t' '{split($3,a,":"); print "MT",1,a[2]}' > $chrMcoord
+samtools view -H $inbam | grep "SN:chrM" | awk -v OFS='\t' '{ split($3,a,":"); print "chrM",1,a[2]}' > $chrMcoord
+samtools view -H $inbam | grep "SN:MT" | awk -v OFS='\t' '{split($3,a,":"); print "MT",1,a[2]}' >> $chrMcoord
 
 # meta plots
 # create data matrix (one site, so here a simple vector)
